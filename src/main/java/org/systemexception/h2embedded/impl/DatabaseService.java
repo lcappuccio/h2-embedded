@@ -4,9 +4,7 @@ import org.systemexception.h2embedded.api.Database;
 import org.systemexception.h2embedded.api.Logger;
 import org.systemexception.h2embedded.enums.DatabaseProperties;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * @author leo
@@ -18,24 +16,27 @@ public class DatabaseService implements Database {
 	private Connection connection;
 
 	public DatabaseService() {
-		try
-		{
+		try {
 			Class.forName("org.h2.Driver");
 			String url = DatabaseProperties.DATABASE_URL.toString();
 			String user = DatabaseProperties.DATABASE_USER.toString();
 			String password = DatabaseProperties.DATABASE_PASSWORD.toString();
 			connection = DriverManager.getConnection(url, user, password);
 			logger.info("Starting database");
-		}
-		catch(ClassNotFoundException | SQLException e )
-		{
-			logger.error("Database error", e);
+		} catch (ClassNotFoundException | SQLException e) {
+			exceptionHandler(e);
 		}
 	}
 
 	@Override
-	public boolean isRunning() throws SQLException {
-		return connection.isValid(500);
+	public boolean isRunning() {
+		boolean status = false;
+		try {
+			status = connection.isValid(500);
+		} catch (SQLException e) {
+			logger.error("Database error", e);
+		}
+		return status;
 	}
 
 	@Override
@@ -43,5 +44,24 @@ public class DatabaseService implements Database {
 		connection.close();
 		logger.info("Shutting down database");
 		return connection.isClosed();
+	}
+
+	@Override
+	public String getCurrentTimeStamp() {
+		String query = "select CURRENT_TIMESTAMP", result = null;
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(query);
+			while (resultSet.next()) {
+				result = resultSet.getString(1);
+			}
+		} catch (SQLException e) {
+			exceptionHandler(e);
+		}
+		return result;
+	}
+
+	private void exceptionHandler(Exception ex) {
+		logger.error("Database error", ex);
 	}
 }

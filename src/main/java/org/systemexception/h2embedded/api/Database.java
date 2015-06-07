@@ -8,19 +8,25 @@ import java.sql.SQLException;
  */
 public interface Database {
 
-	/**
-	 * Check is database is running and valid
-	 *
-	 * @return the value
-	 * @throws SQLException
-	 */
-	boolean isRunning() throws SQLException;
+    /**
+     * Check is database is running and valid
+     *
+     * @return the value
+     */
+    boolean isRunning();
 
-	/**
-	 * Shuts down the database
-	 *
-	 * @return the value
-	 * @throws SQLException
-	 */
-	boolean shutdown() throws SQLException;
+    /**
+     * Shuts down the database
+     *
+     * @return the value
+     * @throws SQLException
+     */
+    boolean shutdown() throws SQLException;
+
+    /**
+     * Returns the current date
+     *
+     * @return the date
+     */
+    String getCurrentTimeStamp();
 }
