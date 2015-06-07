@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
     <Appenders>
-        <File name="info_logfile" fileName="info.log">
+        <File name="info_logfile" fileName="database_info.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%msg%n</Pattern>
             </PatternLayout>
         </File>
-        <File name="debug_logfile" fileName="debug.log">
+        <File name="debug_logfile" fileName="database_debug.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%msg%n</Pattern>
             </PatternLayout>
         </File>
-        <File name="error_logfile" fileName="error.log">
+        <File name="error_logfile" fileName="database_error.log">
             <PatternLayout>
                 <Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}|%level|%msg%n</Pattern>
             </PatternLayout>

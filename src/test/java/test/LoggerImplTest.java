@@ -24,13 +24,13 @@ public class LoggerImplTest {
 
 	@Test
 	public void testDebug() throws Exception {
-		sut.info("TestDebug");
+		sut.debug("TestDebug");
 		assertTrue(new File("debug.log").exists());
 	}
 
 	@Test
 	public void testError() throws Exception {
-		sut.info("TestError");
+		sut.error("TestError", new Exception());
 		assertTrue(new File("error.log").exists());
 	}
 }
