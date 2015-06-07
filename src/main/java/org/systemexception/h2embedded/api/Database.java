@@ -11,7 +11,7 @@ public interface Database {
 	/**
 	 * Check is database is running and valid
 	 *
-	 * @return
+	 * @return the value
 	 * @throws SQLException
 	 */
 	boolean isRunning() throws SQLException;
@@ -19,7 +19,7 @@ public interface Database {
 	/**
 	 * Shuts down the database
 	 *
-	 * @return
+	 * @return the value
 	 * @throws SQLException
 	 */
 	boolean shutdown() throws SQLException;
