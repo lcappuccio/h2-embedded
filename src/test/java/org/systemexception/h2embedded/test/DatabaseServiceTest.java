@@ -1,4 +1,4 @@
-package test;
+package org.systemexception.h2embedded.test;
 
 import org.junit.Test;
 import org.systemexception.h2embedded.api.Database;
