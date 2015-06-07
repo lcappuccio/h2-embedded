@@ -1,5 +1,7 @@
 package org.systemexception.h2embedded.test;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.systemexception.h2embedded.api.Database;
 import org.systemexception.h2embedded.api.Logger;
@@ -17,7 +19,17 @@ import static org.junit.Assert.assertTrue;
 public class DatabaseServiceTest {
 
     private static final Logger logger = LoggerImpl.getFor(DatabaseService.class);
-	private Database sut = new DatabaseService();
+	private Database sut;
+
+	@Before
+	public void setUp() {
+		sut = new DatabaseService();
+	}
+
+	@After
+	public void tearDown() throws SQLException {
+		sut.shutdown();
+	}
 
 	@Test
 	public void testIsRunning() throws Exception {
