@@ -1,8 +1,9 @@
 package org.systemexception.h2embedded.impl;
 
 import org.systemexception.h2embedded.api.Database;
-import org.systemexception.h2embedded.api.Logger;
 import org.systemexception.h2embedded.enums.DatabaseProperties;
+import org.systemexception.logger.api.Logger;
+import org.systemexception.logger.impl.LoggerImpl;
 
 import java.sql.*;
 

@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.systemexception.h2embedded.api.Database;
-import org.systemexception.h2embedded.api.Logger;
 import org.systemexception.h2embedded.impl.DatabaseService;
-import org.systemexception.h2embedded.impl.LoggerImpl;
+import org.systemexception.logger.api.Logger;
+import org.systemexception.logger.impl.LoggerImpl;
 
 import java.sql.SQLException;
 

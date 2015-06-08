@@ -1,8 +1,8 @@
 package org.systemexception.h2embedded.test;
 
 import org.junit.Test;
-import org.systemexception.h2embedded.api.Logger;
-import org.systemexception.h2embedded.impl.LoggerImpl;
+import org.systemexception.logger.api.Logger;
+import org.systemexception.logger.impl.LoggerImpl;
 
 import java.io.File;
 

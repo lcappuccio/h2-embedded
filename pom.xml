@@ -8,7 +8,19 @@
     <artifactId>h2embedded</artifactId>
     <version>1.0</version>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <dependency>
+            <groupId>com.github.lcappuccio</groupId>
+            <artifactId>CommonLogger</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
