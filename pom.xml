@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>com.github.lcappuccio</groupId>
 			<artifactId>CommonLogger</artifactId>
-			<version>1.0.1</version>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
