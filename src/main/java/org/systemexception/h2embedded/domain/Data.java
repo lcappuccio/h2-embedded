@@ -1,4 +1,4 @@
-package org.systemexception.h2embedded.model;
+package org.systemexception.h2embedded.domain;
 
 import org.springframework.data.annotation.Id;
 
