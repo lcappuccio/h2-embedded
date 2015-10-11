@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class})
 @WebAppConfiguration
-public class DataRepositoryTest {
+public class DataControllerTest {
 
 	private Data data = new Data();
 	private DataService dataService;
