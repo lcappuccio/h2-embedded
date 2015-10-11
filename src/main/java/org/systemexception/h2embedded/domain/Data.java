@@ -1,21 +1,42 @@
 package org.systemexception.h2embedded.domain;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author leo
  * @date 07/06/15 20:49
  */
-public class Data {
+@Entity
+public class Data implements Serializable{
 
 	@Id
-	private String id;
+	@GeneratedValue
+	@Column(name = "DATA_ID", unique = true, nullable = false)
+	private int id;
+	@Column(name = "DATA_VALUE", nullable = true)
+	private String dataValue;
 
-	public String getDataId() {
+	protected Data() {
+	}
+
+	public Data(String dataValue) {
+		this.dataValue = dataValue;
+	}
+
+	public int getDataId() {
 		return id;
 	}
 
 	public void setDataId(int dataId) {
 		this.id = id;
+	}
+
+	public String getDataValue() {
+		return dataValue;
+	}
+
+	public void setDataValue(String dataValue) {
+		this.dataValue = dataValue;
 	}
 }
