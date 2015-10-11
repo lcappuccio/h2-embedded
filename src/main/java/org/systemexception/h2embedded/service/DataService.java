@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.systemexception.h2embedded.domain.Data;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author leo
@@ -20,9 +19,9 @@ public interface DataService {
 	Data create(Data data);
 
 	/**
-	 * @param data
+	 * @param id
 	 */
-	void delete(Data data);
+	void delete(String id);
 
 	/**
 	 * @return
@@ -33,11 +32,11 @@ public interface DataService {
 	 * @param id
 	 * @return
 	 */
-	Optional<Data> findById(Long id);
+	Data findById(Integer id);
 
 	/**
 	 * @param data
 	 * @return
 	 */
-	Data update(Data data);
+	void update(Data data);
 }
