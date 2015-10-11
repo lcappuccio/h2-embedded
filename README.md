@@ -15,3 +15,13 @@ The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-
 ## Documentation
 
 Check the bundled [documentation](http://localhost:8080/swagger-ui.html)
+
+## Monitoring
+
+Actuators are deployed (e.g.):
+
+* [autoconfig](http://localhost:8080/autoconfig)
+* [beans](http://localhost:8080/beans)
+* [metrics](http://localhost:8080/metrics)
+
+Further endpoints: [Spring Reference](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready-endpoints)
