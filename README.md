@@ -11,3 +11,7 @@ Embed H2 programmatically
 
 ## H2 Console
 The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-console)
+
+# Documentation
+
+Check the bundled [documentation](http://localhost:8080/swagger-ui.html)

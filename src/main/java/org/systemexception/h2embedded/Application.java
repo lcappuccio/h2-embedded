@@ -8,6 +8,9 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * @author leo
@@ -28,6 +31,27 @@ public class Application extends SpringBootServletInitializer {
 		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
 		registrationBean.addUrlMappings("/h2-console/*");
 		return registrationBean;
+	}
+
+	@Bean
+	public Docket restfulApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("restful-api")
+				.select()
+				.build()
+				.apiInfo(apiInfo());
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo(
+				"SpringBoot CRUD/H2",
+				"An example REST API with SpringBoot and H2(embedded)",
+				"1.1",
+				null,
+				"leo@systemexception.org",
+				null,
+				"https://github.com/lcappuccio/crud-application/blob/master/LICENSE"
+		);
 	}
 
 }
