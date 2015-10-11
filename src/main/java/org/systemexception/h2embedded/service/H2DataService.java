@@ -35,9 +35,15 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public void delete(String id) {
-		logger.info("Delete data: " + id);
-		dataRepository.delete(Integer.valueOf(id));
+	public boolean delete(Integer id) {
+		Data foundData = dataRepository.findOne(id);
+		if (foundData != null) {
+			logger.info("Delete data: " + id);
+			dataRepository.delete(Integer.valueOf(id));
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

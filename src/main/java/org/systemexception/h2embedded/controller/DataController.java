@@ -47,9 +47,13 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
-	void delete(@PathVariable("id") String id) {
+	HttpStatus delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
-		dataService.delete(id);
+		if (dataService.delete(Integer.valueOf(id))) {
+			return HttpStatus.OK;
+		} else {
+			return HttpStatus.NOT_FOUND;
+		}
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)

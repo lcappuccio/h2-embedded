@@ -47,7 +47,7 @@ public class H2DataServiceTest {
 	@Test
 	public void delete_data() {
 		sut = new H2DataService(dataRepository);
-		sut.delete("1");
+		sut.delete(1);
 
 		verify(dataRepository).delete(1);
 	}
