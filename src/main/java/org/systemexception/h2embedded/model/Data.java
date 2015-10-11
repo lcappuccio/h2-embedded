@@ -1,18 +1,21 @@
 package org.systemexception.h2embedded.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * @author leo
  * @date 07/06/15 20:49
  */
 public class Data {
 
-	private int dataId;
+	@Id
+	private String id;
 
-	public int getDataId() {
-		return dataId;
+	public String getDataId() {
+		return id;
 	}
 
 	public void setDataId(int dataId) {
-		this.dataId = dataId;
+		this.id = id;
 	}
 }
