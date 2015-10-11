@@ -51,10 +51,15 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public void update(Data data) {
+	public boolean update(Data data) {
 		Data foundData = dataRepository.findOne(data.getDataId());
-		logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
-		foundData.setDataValue(data.getDataValue());
-		dataRepository.update(foundData.getDataId(), foundData.getDataValue());
+		if (foundData != null) {
+			logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
+			foundData.setDataValue(data.getDataValue());
+			dataRepository.update(foundData.getDataId(), foundData.getDataValue());
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

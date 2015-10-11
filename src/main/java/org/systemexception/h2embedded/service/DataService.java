@@ -38,5 +38,5 @@ public interface DataService {
 	 * @param data
 	 * @return
 	 */
-	void update(Data data);
+	boolean update(Data data);
 }

@@ -71,8 +71,12 @@ public class DataController {
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
-	void update(@RequestBody @Valid Data data) {
+	HttpStatus update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
-		dataService.update(data);
+		if (dataService.update(data)) {
+			return HttpStatus.OK;
+		} else {
+			return HttpStatus.NOT_FOUND;
+		}
 	}
 }
