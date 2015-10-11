@@ -21,7 +21,7 @@ public interface DataService {
 	/**
 	 * @param id
 	 */
-	void delete(String id);
+	boolean delete(Integer id);
 
 	/**
 	 * @return
@@ -38,5 +38,5 @@ public interface DataService {
 	 * @param data
 	 * @return
 	 */
-	void update(Data data);
+	boolean update(Data data);
 }

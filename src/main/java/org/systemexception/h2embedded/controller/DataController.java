@@ -47,9 +47,13 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
-	void delete(@PathVariable("id") String id) {
+	HttpStatus delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
-		dataService.delete(id);
+		if (dataService.delete(Integer.valueOf(id))) {
+			return HttpStatus.OK;
+		} else {
+			return HttpStatus.NOT_FOUND;
+		}
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
@@ -71,8 +75,12 @@ public class DataController {
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
-	void update(@RequestBody @Valid Data data) {
+	HttpStatus update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
-		dataService.update(data);
+		if (dataService.update(data)) {
+			return HttpStatus.OK;
+		} else {
+			return HttpStatus.NOT_FOUND;
+		}
 	}
 }

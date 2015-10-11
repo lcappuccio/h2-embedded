@@ -35,9 +35,15 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public void delete(String id) {
-		logger.info("Delete data: " + id);
-		dataRepository.delete(Integer.valueOf(id));
+	public boolean delete(Integer id) {
+		Data foundData = dataRepository.findOne(id);
+		if (foundData != null) {
+			logger.info("Delete data: " + id);
+			dataRepository.delete(Integer.valueOf(id));
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -51,10 +57,15 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public void update(Data data) {
+	public boolean update(Data data) {
 		Data foundData = dataRepository.findOne(data.getDataId());
-		logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
-		foundData.setDataValue(data.getDataValue());
-		dataRepository.update(foundData.getDataId(), foundData.getDataValue());
+		if (foundData != null) {
+			logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
+			foundData.setDataValue(data.getDataValue());
+			dataRepository.update(foundData.getDataId(), foundData.getDataValue());
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
