@@ -1,7 +1,17 @@
 # H2Embedded
 Embed H2 programmatically
 
-[![Build Status](https://travis-ci.org/lcappuccio/H2Embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/H2Embedded)
+**Master**
 
-## API
-* org.systemexception.h2embedded.api.Database: access to database interface
+[![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/h2-embedded)
+
+**Develop**
+
+[![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=develop)](https://travis-ci.org/lcappuccio/h2-embedded)
+
+## H2 Console
+The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-console)
+
+# Documentation
+
+Check the bundled [documentation](http://localhost:8080/swagger-ui.html)
