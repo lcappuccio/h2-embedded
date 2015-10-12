@@ -1,5 +1,5 @@
 # H2Embedded
-Embed H2 programmatically
+Embed H2 programmatically with a REST API using SpringBoot
 
 **Master**
 
@@ -25,3 +25,10 @@ Actuators are deployed (e.g.):
 * [metrics](http://localhost:8080/metrics)
 
 Further endpoints: [Spring Reference](http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready-endpoints)
+
+## Usage
+
+Use postman or curl to interact with data, e.g.
+
+```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data```
+
