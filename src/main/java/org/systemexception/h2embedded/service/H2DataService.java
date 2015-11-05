@@ -9,6 +9,9 @@ import org.systemexception.h2embedded.repositories.DataRepository;
 import org.systemexception.logger.api.Logger;
 import org.systemexception.logger.impl.LoggerImpl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +42,7 @@ public class H2DataService implements DataService {
 		Data foundData = dataRepository.findOne(id);
 		if (foundData != null) {
 			logger.info("Delete data: " + id);
-			dataRepository.delete(Integer.valueOf(id));
+			dataRepository.delete(id);
 			return true;
 		} else {
 			return false;
@@ -62,10 +65,17 @@ public class H2DataService implements DataService {
 		if (foundData != null) {
 			logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
 			foundData.setDataValue(data.getDataValue());
+			foundData.setDataTimestamp(java.sql.Timestamp.valueOf(getDate()));
 			dataRepository.update(foundData.getDataId(), foundData.getDataValue());
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	private String getDate() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 }

@@ -2,6 +2,7 @@ package org.systemexception.h2embedded.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author leo
@@ -14,8 +15,13 @@ public class Data implements Serializable {
 	@GeneratedValue
 	@Column(name = "DATA_ID", unique = true, nullable = false)
 	private int dataId;
+
 	@Column(name = "DATA_VALUE", nullable = true)
 	private String dataValue;
+
+	@Column(name = "DATA_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataTimestamp;
 
 	public Data() {
 	}
@@ -34,6 +40,14 @@ public class Data implements Serializable {
 
 	public void setDataValue(String dataValue) {
 		this.dataValue = dataValue;
+	}
+
+	public Date getDataTimestamp() {
+		return dataTimestamp;
+	}
+
+	public void setDataTimestamp(Date dataTimestamp) {
+		this.dataTimestamp = dataTimestamp;
 	}
 
 	@Override
