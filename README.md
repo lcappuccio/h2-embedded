@@ -32,3 +32,6 @@ Use postman or curl to interact with data, e.g.
 
 ```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data```
 
+## Frontend
+
+A very basic frontend is [available](http://localhost:8080)
