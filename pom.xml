@@ -28,11 +28,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.lcappuccio</groupId>
-			<artifactId>common-logger</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
