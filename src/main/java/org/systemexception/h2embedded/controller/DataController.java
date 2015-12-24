@@ -66,6 +66,7 @@ public class DataController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
 	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	List<Data> findAll() {
 		logger.info("Received GET all persons");
@@ -74,6 +75,7 @@ public class DataController {
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	HttpStatus update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
