@@ -34,6 +34,7 @@ public class H2DataService implements DataService {
 	@Override
 	public Data create(Data data) {
 		logger.info("Create data: " + data.getDataValue());
+		data.setDataTimestamp(java.sql.Timestamp.valueOf(getDate()));
 		return dataRepository.save(data);
 	}
 
@@ -74,7 +75,7 @@ public class H2DataService implements DataService {
 	}
 
 	private String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
