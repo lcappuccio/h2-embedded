@@ -76,7 +76,7 @@ public class DataControllerTest {
 	public void delete_data() throws Exception {
 		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/1"))
 				.andExpect(status().is(HttpStatus.OK.value()));
-		verify(dataService).delete(any());
+		verify(dataService).delete(1);
 	}
 
 	@Test
