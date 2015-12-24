@@ -2,14 +2,14 @@ package org.systemexception.h2embedded.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
-import org.systemexception.logger.api.Logger;
-import org.systemexception.logger.impl.LoggerImpl;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ import java.util.List;
 @Api(basePath = "/api/data", value = "Data", description = "Data REST API")
 public class DataController {
 
-	private final static Logger logger = LoggerImpl.getFor(DataController.class);
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final DataService dataService;
 
 	@Autowired

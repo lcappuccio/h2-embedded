@@ -79,6 +79,13 @@ public class DataControllerTest {
 		verify(dataService).delete(any());
 	}
 
+	@Test
+	public void update_data() throws Exception {
+		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
+				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.OK.value()));
+		verify(dataService).update(any());
+	}
+
 	private String dataJson(Data data) {
 		return "{\"name\":" + "\"" + data.getDataId() + "\"," +
 				"\"lastName\":" + "\"" + data.getDataValue() + "\"}";

@@ -1,13 +1,13 @@
 package org.systemexception.h2embedded.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.repositories.DataRepository;
-import org.systemexception.logger.api.Logger;
-import org.systemexception.logger.impl.LoggerImpl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +23,7 @@ import java.util.List;
 @Transactional
 public class H2DataService implements DataService {
 
-	private static final Logger logger = LoggerImpl.getFor(H2DataService.class);
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final DataRepository dataRepository;
 
 	@Autowired
@@ -34,6 +34,7 @@ public class H2DataService implements DataService {
 	@Override
 	public Data create(Data data) {
 		logger.info("Create data: " + data.getDataValue());
+		data.setDataTimestamp(java.sql.Timestamp.valueOf(getDate()));
 		return dataRepository.save(data);
 	}
 
@@ -74,7 +75,7 @@ public class H2DataService implements DataService {
 	}
 
 	private String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
