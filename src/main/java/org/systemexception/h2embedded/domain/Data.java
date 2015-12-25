@@ -23,9 +23,6 @@ public class Data implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTimestamp;
 
-	public Data() {
-	}
-
 	public int getDataId() {
 		return dataId;
 	}
