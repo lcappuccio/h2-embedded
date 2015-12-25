@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 07/06/15 20:49
  */
 @Entity
-public class Data implements Serializable {
+public class Data {
 
 	@Id
 	@GeneratedValue
