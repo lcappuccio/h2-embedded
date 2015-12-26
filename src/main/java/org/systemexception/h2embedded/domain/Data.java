@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 07/06/15 20:49
  */
 @Entity
-public class Data implements Serializable {
+public class Data {
 
 	@Id
 	@GeneratedValue
@@ -22,9 +22,6 @@ public class Data implements Serializable {
 	@Column(name = "DATA_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTimestamp;
-
-	public Data() {
-	}
 
 	public int getDataId() {
 		return dataId;

@@ -4,10 +4,12 @@ Embed H2 programmatically with a REST API using SpringBoot
 **Master**
 
 [![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/h2-embedded)
+[![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/h2-embedded?branch=master)
 
 **Develop**
 
 [![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=develop)](https://travis-ci.org/lcappuccio/h2-embedded)
+[![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=develop)](https://codecov.io/github/lcappuccio/h2-embedded?branch=develop)
 
 ## H2 Console
 The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-console)
