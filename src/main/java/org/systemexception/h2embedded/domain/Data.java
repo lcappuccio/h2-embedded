@@ -55,7 +55,8 @@ public class Data {
 		Data data = (Data) o;
 
 		if (dataId != data.dataId) return false;
-		return dataValue.equals(data.dataValue);
+		if (dataValue != null ? !dataValue.equals(data.dataValue) : data.dataValue != null) return false;
+		return dataTimestamp != null ? dataTimestamp.equals(data.dataTimestamp) : data.dataTimestamp == null;
 
 	}
 }
