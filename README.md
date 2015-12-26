@@ -5,6 +5,7 @@ Embed H2 programmatically with a REST API using SpringBoot
 
 [![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/h2-embedded)
 [![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/h2-embedded?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/37a67909f9104902aad70d7a0ad5504e)](https://www.codacy.com/app/leo_4/h2-embedded)
 
 **Develop**
 
