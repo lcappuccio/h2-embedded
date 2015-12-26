@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * @author leo
@@ -29,6 +28,7 @@ public class H2DataServiceTest {
 	@Before
 	public void setUp() {
 		data = new Data();
+		data.setDataId(1);
 		data.setDataValue("TestData");
 		dataList.add(data);
 		dataRepository = mock(DataRepository.class);
@@ -76,9 +76,12 @@ public class H2DataServiceTest {
 	@Test
 	public void update_data() {
 		sut = new H2DataService(dataRepository);
+		data = new Data();
 		data.setDataId(1);
+		data.setDataValue("TestData");
+		data.setDataTimestamp(null);
 		sut.update(data);
-
 		verify(dataRepository).update(1, data.getDataValue());
+		assertFalse(data.equals(sut.findById(1)));
 	}
 }
