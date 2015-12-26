@@ -40,12 +40,16 @@ public class DataControllerTest {
 	private DataController dataController;
 	private MockMvc sut;
 	private final static String ENDPOINT = "/api/data/";
+	private final int existingId = 1, nonExistingId = 99;
 
 	@Before
 	public void setUp() {
+		data.setDataId(existingId);
 		data.setDataValue("TestData");
 		dataService = mock(DataService.class);
 		when(dataService.findAll()).thenReturn(null);
+		when(dataService.delete(existingId)).thenReturn(true);
+		when(dataService.delete(nonExistingId)).thenReturn(false);
 		dataController = new DataController(dataService);
 		MockitoAnnotations.initMocks(this);
 		sut = MockMvcBuilders.standaloneSetup(dataController).build();
@@ -76,9 +80,16 @@ public class DataControllerTest {
 
 	@Test
 	public void delete_data() throws Exception {
-		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/1"))
-				.andExpect(status().is(HttpStatus.OK.value()));
-		verify(dataService).delete(1);
+		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + existingId)).andExpect(status()
+				.is(HttpStatus.OK.value()));
+		verify(dataService).delete(existingId);
+	}
+
+	@Test
+	public void delete_nonexisting_data() throws Exception {
+		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + nonExistingId)).andExpect(status()
+				.is(HttpStatus.OK.value()));
+		verify(dataService).delete(nonExistingId);
 	}
 
 	@Test

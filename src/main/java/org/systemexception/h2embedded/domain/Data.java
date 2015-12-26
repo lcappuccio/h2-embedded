@@ -58,11 +58,4 @@ public class Data {
 		return dataValue.equals(data.dataValue);
 
 	}
-
-	@Override
-	public int hashCode() {
-		int result = dataId;
-		result = 31 * result + dataValue.hashCode();
-		return result;
-	}
 }
