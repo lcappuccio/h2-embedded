@@ -15,7 +15,7 @@ function drawTable(data) {
 
 $(document).ready(function () {
 	$.get("http://localhost:8080/api/data", function (data) {
-		$('.data-size').append(data.length);
+		$(".data-size").append(data.length);
 		drawTable(data);
 	});
 });
