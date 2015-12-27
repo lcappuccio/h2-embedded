@@ -38,7 +38,7 @@ public class DataController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	@ApiOperation(value = "Create data", notes = "Adds data to the database")
-	Data create(@RequestBody @Valid Data data) {
+	private Data create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		return dataService.create(data);
 	}
@@ -47,7 +47,7 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
-	HttpStatus delete(@PathVariable("id") String id) {
+	private HttpStatus delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
 			return HttpStatus.OK;
@@ -60,7 +60,7 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
-	Data findById(@PathVariable("id") String id) {
+	private Data findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
 		return dataService.findById(Integer.valueOf(id));
 	}
@@ -68,7 +68,7 @@ public class DataController {
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
-	List<Data> findAll() {
+	private List<Data> findAll() {
 		logger.info("Received GET all persons");
 		return dataService.findAll();
 	}
@@ -77,7 +77,7 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
-	HttpStatus update(@RequestBody @Valid Data data) {
+	private HttpStatus update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
 			return HttpStatus.OK;
