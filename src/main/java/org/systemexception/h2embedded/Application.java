@@ -27,7 +27,7 @@ public class Application extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	ServletRegistrationBean h2servletRegistration() {
+	public ServletRegistrationBean h2servletRegistration() {
 		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
 		registrationBean.addUrlMappings("/h2-console/*");
 		return registrationBean;
