@@ -34,7 +34,6 @@ public class H2DataServiceTest {
 		dataRepository = mock(DataRepository.class);
 		when(dataRepository.save(data)).thenReturn(data);
 		when(dataRepository.findAll()).thenReturn(dataList);
-		when(dataRepository.findOne(1)).thenReturn(data);
 	}
 
 	@Test
@@ -47,11 +46,20 @@ public class H2DataServiceTest {
 	}
 
 	@Test
-	public void delete_data() {
+	public void delete_existing_data() {
 		sut = new H2DataService(dataRepository);
-		sut.delete(1);
+		when(dataRepository.findOne(1)).thenReturn(data);
 
+		assertTrue(sut.delete(1));
 		verify(dataRepository).delete(1);
+	}
+
+	@Test
+	public void delete_nonexisting_data() {
+		sut = new H2DataService(dataRepository);
+		when(dataRepository.findOne(1)).thenReturn(null);
+
+		assertFalse(sut.delete(1));
 	}
 
 	@Test
@@ -66,6 +74,7 @@ public class H2DataServiceTest {
 	@Test
 	public void find_single_data() {
 		sut = new H2DataService(dataRepository);
+		when(dataRepository.findOne(1)).thenReturn(data);
 		Data foundData = sut.findById(1);
 
 		assertTrue(Objects.equals(foundData.getDataId(), data.getDataId()));
@@ -74,14 +83,27 @@ public class H2DataServiceTest {
 	}
 
 	@Test
-	public void update_data() {
+	public void update_existing_data() {
 		sut = new H2DataService(dataRepository);
+		when(dataRepository.findOne(1)).thenReturn(data);
 		data = new Data();
 		data.setDataId(1);
 		data.setDataValue("TestData");
 		data.setDataTimestamp(null);
-		sut.update(data);
+		assertTrue(sut.update(data));
 		verify(dataRepository).update(1, data.getDataValue());
+		assertFalse(data.equals(sut.findById(1)));
+	}
+
+	@Test
+	public void update_nonexisting_data() {
+		sut = new H2DataService(dataRepository);
+		when(dataRepository.findOne(1)).thenReturn(null);
+		data = new Data();
+		data.setDataId(1);
+		data.setDataValue("TestData");
+		data.setDataTimestamp(null);
+		assertFalse(sut.update(data));
 		assertFalse(data.equals(sut.findById(1)));
 	}
 }

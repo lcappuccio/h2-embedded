@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataControllerTest {
 
-	private Data data = new Data();
+	private final Data data = new Data();
 	private DataService dataService;
 	@InjectMocks
 	@Autowired
@@ -79,7 +79,8 @@ public class DataControllerTest {
 	}
 
 	@Test
-	public void delete_data() throws Exception {
+	public void delete_existing_data() throws Exception {
+		when(dataService.update(data)).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + existingId)).andExpect(status()
 				.is(HttpStatus.OK.value()));
 		verify(dataService).delete(existingId);
@@ -87,15 +88,25 @@ public class DataControllerTest {
 
 	@Test
 	public void delete_nonexisting_data() throws Exception {
+		when(dataService.update(data)).thenReturn(false);
 		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + nonExistingId)).andExpect(status()
-				.is(HttpStatus.OK.value()));
+				.is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).delete(nonExistingId);
 	}
 
 	@Test
-	public void update_data() throws Exception {
+	public void update_existing_data() throws Exception {
+		when(dataService.update(any())).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.OK.value()));
+		verify(dataService).update(any());
+	}
+
+	@Test
+	public void update_nonexisting_data() throws Exception {
+		when(dataService.update(any())).thenReturn(false);
+		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
+				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).update(any());
 	}
 
