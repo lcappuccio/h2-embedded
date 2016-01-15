@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
@@ -44,15 +45,14 @@ public class DataController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
-	public HttpStatus delete(@PathVariable("id") String id) {
+	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
-			return HttpStatus.OK;
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			return HttpStatus.NOT_FOUND;
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 
@@ -66,6 +66,7 @@ public class DataController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	public List<Data> findAll() {
@@ -74,15 +75,14 @@ public class DataController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
-	public HttpStatus update(@RequestBody @Valid Data data) {
+	public ResponseEntity<HttpStatus> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
-			return HttpStatus.OK;
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			return HttpStatus.NOT_FOUND;
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 }
