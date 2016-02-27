@@ -65,10 +65,18 @@ public class DataControllerTest {
 	@Test
 	public void find_single_data() throws Exception {
 		dataService.create(data);
-		when(dataService.findById(any())).thenReturn(data);
+		when(dataService.findById(existingId)).thenReturn(data);
 		sut.perform(MockMvcRequestBuilders.get(ENDPOINT + data.getDataId()).accept(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().is(HttpStatus.OK.value()));
-		verify(dataService).findById(any());
+				.andExpect(status().is(HttpStatus.FOUND.value()));
+		verify(dataService).findById(existingId);
+	}
+
+	@Test
+	public void dont_find_non_existing_data() throws Exception {
+		when(dataService.findById(nonExistingId)).thenReturn(null);
+		sut.perform(MockMvcRequestBuilders.get(ENDPOINT + nonExistingId).accept(MediaType.APPLICATION_JSON_VALUE))
+				.andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+		verify(dataService).findById(nonExistingId);
 	}
 
 	@Test
