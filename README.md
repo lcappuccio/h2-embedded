@@ -35,7 +35,7 @@ Further endpoints: [Spring Reference](http://docs.spring.io/spring-boot/docs/cur
 
 Use postman or curl to interact with data, e.g.
 
-```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data```
+```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data -u user:password ```
 
 ### Security
 
