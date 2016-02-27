@@ -86,7 +86,7 @@ public class DataController {
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
-			return new ResponseEntity<Data>(data, HttpStatus.OK);
+			return new ResponseEntity<Data>(dataService.findById(data.getDataId()), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Data>(new Data(), HttpStatus.NOT_FOUND);
 		}
