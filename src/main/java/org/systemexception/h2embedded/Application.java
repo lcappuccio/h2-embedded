@@ -1,9 +1,7 @@
 package org.systemexception.h2embedded;
 
-import org.h2.server.web.WebServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -27,13 +25,6 @@ public class Application extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public ServletRegistrationBean h2servletRegistration() {
-		ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-		registrationBean.addUrlMappings("/h2-console/*");
-		return registrationBean;
-	}
-
-	@Bean
 	public Docket restfulApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.groupName("restful-api")
@@ -53,5 +44,4 @@ public class Application extends SpringBootServletInitializer {
 				"https://github.com/lcappuccio/crud-application/blob/master/LICENSE"
 		);
 	}
-
 }
