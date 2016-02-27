@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.systemexception.h2embedded.constants.Endpoints;
+import org.systemexception.h2embedded.constants.Parameters;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -22,8 +24,8 @@ import java.util.List;
  */
 @EnableSwagger2
 @RestController
-@RequestMapping(value = "/api/data")
-@Api(basePath = "/api/data", value = "Data", description = "Data REST API")
+@RequestMapping(value = Endpoints.CONTEXT)
+@Api(basePath = Endpoints.CONTEXT, value = "Data", description = "Data REST API")
 public class DataController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -34,20 +36,20 @@ public class DataController {
 		this.dataService = dataService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType
-			.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create data", notes = "Adds data to the database")
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	@ApiOperation(value = "Create data", notes = "Adds data to the database")
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		return new ResponseEntity<Data>(dataService.create(data), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseBody
 	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
-	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
+	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<HttpStatus> delete(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -56,11 +58,11 @@ public class DataController {
 		}
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
+	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
 	@ResponseBody
-	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
-	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
+	public ResponseEntity<Data> findById(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
 		if(dataById != null) {
@@ -71,18 +73,18 @@ public class DataController {
 
 	}
 
+	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
 		return new ResponseEntity<List<Data>>(dataService.findAll(), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
