@@ -1,5 +1,5 @@
 # H2Embedded
-Embed H2 programmatically with a REST API using SpringBoot
+Embed H2 programmatically with a REST API using SpringBoot and Spring Security
 
 **Master**
 
@@ -36,6 +36,11 @@ Further endpoints: [Spring Reference](http://docs.spring.io/spring-boot/docs/cur
 Use postman or curl to interact with data, e.g.
 
 ```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data```
+
+### Security
+
+Check credentials in `org.systemexception.h2embedded.SecurityConfig`
+and add them to your REST utility for basic authentication.
 
 ## Frontend
 
