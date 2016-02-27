@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -33,10 +36,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataControllerTest {
 
+	@Autowired
+	private FilterChainProxy springSecurityFilterChain;
 	private final Data data = new Data();
 	private DataService dataService;
 	@InjectMocks
-	@Autowired
 	private DataController dataController;
 	private MockMvc sut;
 	private final static String ENDPOINT = "/api/data/";
@@ -50,9 +54,9 @@ public class DataControllerTest {
 		when(dataService.findAll()).thenReturn(null);
 		when(dataService.delete(existingId)).thenReturn(true);
 		when(dataService.delete(nonExistingId)).thenReturn(false);
-		dataController = new DataController(dataService);
 		MockitoAnnotations.initMocks(this);
-		sut = MockMvcBuilders.standaloneSetup(dataController).build();
+		sut = MockMvcBuilders.standaloneSetup(dataController)
+				.apply(SecurityMockMvcConfigurers.springSecurity(springSecurityFilterChain)).build();
 	}
 
 	@Test
@@ -80,6 +84,7 @@ public class DataControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "admin", password = "admin_pwd", roles = {"ADMIN"})
 	public void save_data() throws Exception {
 		sut.perform(MockMvcRequestBuilders.post(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.CREATED.value()));
@@ -87,6 +92,15 @@ public class DataControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "user", password = "user_pwd", roles = {"USER"})
+	public void save_data_forbidden() throws Exception {
+		sut.perform(MockMvcRequestBuilders.post(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
+				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.FORBIDDEN.value()));
+		verifyNoMoreInteractions(dataService);
+	}
+
+	@Test
+	@WithMockUser(username = "admin", password = "admin_pwd", roles = {"ADMIN"})
 	public void delete_existing_data() throws Exception {
 		when(dataService.update(data)).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + existingId)).andExpect(status()
@@ -95,6 +109,7 @@ public class DataControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "admin", password = "admin_pwd", roles = {"ADMIN"})
 	public void delete_nonexisting_data() throws Exception {
 		when(dataService.update(data)).thenReturn(false);
 		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + nonExistingId)).andExpect(status()
@@ -103,6 +118,16 @@ public class DataControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "user", password = "user_pwd", roles = {"USER"})
+	public void delete_forbidden() throws Exception {
+		when(dataService.update(data)).thenReturn(false);
+		sut.perform(MockMvcRequestBuilders.delete(ENDPOINT + "/" + nonExistingId)).andExpect(status()
+				.is(HttpStatus.FORBIDDEN.value()));
+		verifyNoMoreInteractions(dataService);
+	}
+
+	@Test
+	@WithMockUser(username = "admin", password = "admin_pwd", roles = {"ADMIN"})
 	public void update_existing_data() throws Exception {
 		when(dataService.update(any())).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
@@ -111,11 +136,21 @@ public class DataControllerTest {
 	}
 
 	@Test
+	@WithMockUser(username = "admin", password = "admin_pwd", roles = {"ADMIN"})
 	public void update_nonexisting_data() throws Exception {
 		when(dataService.update(any())).thenReturn(false);
 		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).update(any());
+	}
+
+	@Test
+	@WithMockUser(username = "user", password = "user_pwd", roles = {"USER"})
+	public void update_forbidden() throws Exception {
+		when(dataService.update(any())).thenReturn(false);
+		sut.perform(MockMvcRequestBuilders.put(ENDPOINT).contentType(MediaType.APPLICATION_JSON_VALUE).content
+				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.FORBIDDEN.value()));
+		verifyNoMoreInteractions(dataService);
 	}
 
 	private String dataJson(Data data) {
