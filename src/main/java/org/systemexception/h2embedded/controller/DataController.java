@@ -39,9 +39,9 @@ public class DataController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	@ApiOperation(value = "Create data", notes = "Adds data to the database")
-	public Data create(@RequestBody @Valid Data data) {
+	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
-		return dataService.create(data);
+		return new ResponseEntity<Data>(dataService.create(data), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -57,32 +57,38 @@ public class DataController {
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.FOUND)
 	@ResponseBody
 	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
-	public Data findById(@PathVariable("id") String id) {
+	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
-		return dataService.findById(Integer.valueOf(id));
+		Data dataById = dataService.findById(Integer.valueOf(id));
+		if(dataById != null) {
+			return new ResponseEntity<Data>(dataById, HttpStatus.FOUND);
+		} else {
+			return new ResponseEntity<Data>(dataById, HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
-	public List<Data> findAll() {
+	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
-		return dataService.findAll();
+		return new ResponseEntity<List<Data>>(dataService.findAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
-	public ResponseEntity<HttpStatus> update(@RequestBody @Valid Data data) {
+	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<Data>(data, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Data>(new Data(), HttpStatus.NOT_FOUND);
 		}
 	}
 }
