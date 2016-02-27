@@ -34,19 +34,19 @@ public class DataController {
 		this.dataService = dataService;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType
-			.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Create data", notes = "Adds data to the database")
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	@ApiOperation(value = "Create data", notes = "Adds data to the database")
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		return new ResponseEntity<Data>(dataService.create(data), HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
@@ -56,10 +56,10 @@ public class DataController {
 		}
 	}
 
+	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
 	@ResponseBody
-	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
 	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
@@ -71,18 +71,18 @@ public class DataController {
 
 	}
 
+	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
 		return new ResponseEntity<List<Data>>(dataService.findAll(), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
