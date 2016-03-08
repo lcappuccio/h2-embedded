@@ -37,6 +37,9 @@ Use postman or curl to interact with data, e.g.
 
 ```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data -u user:password ```
 
+Additionally a JMeter test plan is available.
+
+
 ### Security
 
 Check credentials in `org.systemexception.h2embedded.SecurityConfig`
