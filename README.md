@@ -48,3 +48,8 @@ and add them to your REST utility for basic authentication.
 ## Frontend
 
 A very basic frontend is [available](http://localhost:8080)
+
+# ToDo
+
+* Improve UI
+* User Management
