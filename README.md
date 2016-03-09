@@ -23,7 +23,7 @@ Check the bundled [documentation](http://localhost:8080/swagger-ui.html)
 
 ## Monitoring
 
-Actuators are deployed (e.g.):
+Actuators are deployed (e.g.), verify `management.port` in `application.properties`:
 
 * [autoconfig](http://localhost:8080/autoconfig)
 * [beans](http://localhost:8080/beans)
