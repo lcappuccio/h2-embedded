@@ -3,7 +3,7 @@ function drawRow(rowData) {
 	$("#dataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
 	row.append($("<td>" + rowData.dataId + "</td>"));
 	row.append($("<td>" + rowData.dataValue + "</td>"));
-	var date = new Date(rowData.dataTimestamp).toLocaleString();
+	var date = moment(new Date(rowData.dataTimestamp)).format('YYYYMMDD hh:mm:ss');
 	row.append($("<td>" + date + "</td>"));
 }
 
