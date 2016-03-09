@@ -37,7 +37,7 @@ public class Application extends SpringBootServletInitializer {
 				"1.1",
 				null,
 				"leo@systemexception.org",
-				null,
+				"GPL v3",
 				"https://github.com/lcappuccio/crud-application/blob/master/LICENSE"
 		);
 	}
