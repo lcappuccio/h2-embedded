@@ -34,7 +34,7 @@ public class Application extends SpringBootServletInitializer {
 		return new ApiInfo(
 				"SpringBoot CRUD/H2",
 				"An example REST API with SpringBoot and H2(embedded)",
-				"1.1",
+				"1.3.5-SNAPSHOT",
 				null,
 				"leo@systemexception.org",
 				"GPL v3",
