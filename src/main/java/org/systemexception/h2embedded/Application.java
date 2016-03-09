@@ -27,10 +27,7 @@ public class Application extends SpringBootServletInitializer {
 	@Bean
 	public Docket restfulApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("restful-api")
-				.select()
-				.build()
-				.apiInfo(apiInfo());
+				.groupName("restful-api").select().build().apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {
