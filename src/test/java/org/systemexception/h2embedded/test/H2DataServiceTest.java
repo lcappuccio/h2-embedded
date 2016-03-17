@@ -23,7 +23,7 @@ public class H2DataServiceTest {
 	private H2DataService sut;
 	private DataRepository dataRepository;
 	private Data data;
-	private List<Data> dataList = new ArrayList<>();
+	private final List<Data> dataList = new ArrayList<>();
 
 	@Before
 	public void setUp() {
