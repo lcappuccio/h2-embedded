@@ -23,7 +23,7 @@ Check the bundled [documentation](http://localhost:8080/swagger-ui.html)
 
 ## Monitoring
 
-Actuators are deployed (e.g.):
+Actuators are deployed (e.g.), verify `management.port` in `application.properties`:
 
 * [autoconfig](http://localhost:8080/autoconfig)
 * [beans](http://localhost:8080/beans)
@@ -37,6 +37,9 @@ Use postman or curl to interact with data, e.g.
 
 ```curl -i -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data '{"dataValue":"'$data'"}' http://xxx.xxx.xxx.xxx:8080/api/data -u user:password ```
 
+Additionally a JMeter test plan is available.
+
+
 ### Security
 
 Check credentials in `org.systemexception.h2embedded.SecurityConfig`
@@ -45,3 +48,8 @@ and add them to your REST utility for basic authentication.
 ## Frontend
 
 A very basic frontend is [available](http://localhost:8080)
+
+# ToDo
+
+* Improve UI
+* User Management
