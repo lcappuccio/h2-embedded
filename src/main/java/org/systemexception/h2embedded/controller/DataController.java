@@ -38,14 +38,12 @@ public class DataController {
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		return new ResponseEntity<>(dataService.create(data), HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.DELETE)
-	@ResponseBody
 	public ResponseEntity<HttpStatus> delete(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
@@ -57,7 +55,6 @@ public class DataController {
 
 	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
-	@ResponseBody
 	public ResponseEntity<Data> findById(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
@@ -71,14 +68,12 @@ public class DataController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
 		return new ResponseEntity<>(dataService.findAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
