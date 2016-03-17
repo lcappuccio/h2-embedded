@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 	<meta charset="utf-8">
 	<title>H2 Embedded</title>
@@ -17,20 +17,20 @@
 	<script type="text/javascript" src="js/viewdata.js"></script>
 </head>
 <body>
-	<div>
-		<h2><p class="data-size">Total entries: </p></h2>
+<div>
+	<h2><p class="data-size">Total entries: </p></h2>
+</div>
+<div>
+	<div class="panel panel-default">
+		<div class="panel-heading">Table heading</div>
+		<table id="dataTable" class="table">
+			<tr>
+				<th>Id</th>
+				<th>Value</th>
+				<th>Timestamp</th>
+			</tr>
+		</table>
 	</div>
-	<div>
-		<div class="panel panel-default">
-			<div class="panel-heading">Table heading</div>
-			<table id="dataTable" class="table">
-				<tr>
-					<th>Id</th>
-					<th>Value</th>
-					<th>Timestamp</th>
-				</tr>
-			</table>
-		</div>
-	</div>
+</div>
 </body>
 </html>

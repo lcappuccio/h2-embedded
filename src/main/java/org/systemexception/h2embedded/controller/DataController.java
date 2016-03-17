@@ -1,30 +1,21 @@
 package org.systemexception.h2embedded.controller;
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.constants.Endpoints;
 import org.systemexception.h2embedded.constants.Parameters;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
-
-import java.util.List;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import java.util.List;
 
 /**
  * @author leo
@@ -44,7 +35,6 @@ public class DataController {
 		this.dataService = dataService;
 	}
 
-	@ApiOperation(value = "Create data", notes = "Adds data to the database")
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -54,7 +44,6 @@ public class DataController {
 		return new ResponseEntity<>(dataService.create(data), HttpStatus.CREATED);
 	}
 
-	@ApiOperation(value = "Delete data", notes = "Deletes data from the database")
 	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.DELETE)
 	@ResponseBody
 	public ResponseEntity<HttpStatus> delete(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
@@ -66,7 +55,6 @@ public class DataController {
 		}
 	}
 
-	@ApiOperation(value = "Find data by id", notes = "Use internal database id")
 	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
 	@ResponseBody
@@ -81,7 +69,6 @@ public class DataController {
 
 	}
 
-	@ApiOperation(value = "List all data", notes = "Produces the full data list in database")
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
@@ -90,7 +77,6 @@ public class DataController {
 		return new ResponseEntity<>(dataService.findAll(), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "Update data", notes = "Unknown behaviour if id does not exist")
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {

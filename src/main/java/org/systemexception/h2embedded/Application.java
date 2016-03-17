@@ -1,11 +1,9 @@
 package org.systemexception.h2embedded;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -14,9 +12,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author leo
  * @date 11/10/15 15:43
  */
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
@@ -34,7 +30,7 @@ public class Application extends SpringBootServletInitializer {
 		return new ApiInfo(
 				"SpringBoot CRUD/H2",
 				"An example REST API with SpringBoot and H2(embedded)",
-				"1.3.5-SNAPSHOT",
+				null,
 				null,
 				"leo@systemexception.org",
 				"GPL v3",
