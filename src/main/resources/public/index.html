@@ -28,16 +28,13 @@
 			<ul class="nav navbar-nav">
 				<li>
 					<div class="navbar-form navbar-left">
-						<input type="text" class="form-control" id="findTextField" placeholder="Search/Add/Delete"/>
-						<button type="submit" class="btn btn-default">
-							<span class="glyphicon glyphicon-search" aria-hidden="true" onclick="findItem()">
-							</span></button>
-						<button type="submit" class="btn btn-default">
-							<span class="glyphicon glyphicon-plus" aria-hidden="true" onclick="addItem()">
-							</span></button>
-						<button type="submit" class="btn btn-default">
-							<span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="deleteItem()">
-							</span></button>
+						<input type="text" class="form-control" id="textInputField" placeholder="Search/Add/Delete"/>
+						<button type="submit" class="btn btn-default" id="findItemBtn" onclick="findItem()">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+						<button type="submit" class="btn btn-default" id="addItemBtn" onclick="addItem()">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						<button type="submit" class="btn btn-default" id="deleteItemBtn" onclick="deleteItem()">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 					</div>
 				</li>
 			</ul>
