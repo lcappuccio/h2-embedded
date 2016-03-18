@@ -58,7 +58,7 @@ public class DataController {
 	public ResponseEntity<Data> findById(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
-		if(dataById != null) {
+		if (dataById != null) {
 			return new ResponseEntity<>(dataById, HttpStatus.FOUND);
 		} else {
 			return new ResponseEntity<>(dataById, HttpStatus.NOT_FOUND);
