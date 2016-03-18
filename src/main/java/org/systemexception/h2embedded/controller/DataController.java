@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.constants.Endpoints;
-import org.systemexception.h2embedded.constants.Parameters;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -43,8 +42,8 @@ public class DataController {
 		return new ResponseEntity<>(dataService.create(data), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.DELETE)
-	public ResponseEntity<HttpStatus> delete(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
+	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.DELETE)
+	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -53,9 +52,9 @@ public class DataController {
 		}
 	}
 
-	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.GET)
+	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
-	public ResponseEntity<Data> findById(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
+	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
 		if (dataById != null) {
