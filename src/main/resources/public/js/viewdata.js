@@ -24,6 +24,15 @@ function addItem() {
 	location.reload();
 }
 
+function deleteItem(data) {
+	var deleteId = $('#textInputField').val();
+	$.ajax({
+		url: '/api/data/' + deleteId,
+		type: 'DELETE'
+	});
+	location.reload();
+}
+
 $(document).ready(function () {
 	$.get('http://localhost:8080/api/data', function (data) {
 		$('#data-size').append(data.length);
