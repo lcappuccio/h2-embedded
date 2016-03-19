@@ -92,9 +92,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/*Application.*</exclude>
-						<exclude>**/*SimpleCorsFilter.*</exclude>
 						<exclude>**/*Endpoints.*</exclude>
-						<exclude>**/*Parameters.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
