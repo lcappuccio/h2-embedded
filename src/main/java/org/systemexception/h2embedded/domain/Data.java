@@ -15,7 +15,7 @@ public class Data {
 	@Column(name = "DATA_ID", unique = true, nullable = false)
 	private int dataId;
 
-	@Column(name = "DATA_VALUE", nullable = true)
+	@Column(name = "DATA_VALUE")
 	private String dataValue;
 
 	@Column(name = "DATA_TIMESTAMP")
