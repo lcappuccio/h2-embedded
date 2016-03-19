@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.constants.Endpoints;
-import org.systemexception.h2embedded.constants.Parameters;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -38,15 +37,13 @@ public class DataController {
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	@ResponseBody
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		return new ResponseEntity<>(dataService.create(data), HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.DELETE)
-	@ResponseBody
-	public ResponseEntity<HttpStatus> delete(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
+	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.DELETE)
+	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Integer.valueOf(id))) {
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -55,13 +52,12 @@ public class DataController {
 		}
 	}
 
-	@RequestMapping(value = Parameters.DATA_ID_API_PARAM, method = RequestMethod.GET)
+	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.FOUND)
-	@ResponseBody
-	public ResponseEntity<Data> findById(@PathVariable(Parameters.DATA_ID_PATH_VARIABLE) String id) {
+	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Integer.valueOf(id));
-		if(dataById != null) {
+		if (dataById != null) {
 			return new ResponseEntity<>(dataById, HttpStatus.FOUND);
 		} else {
 			return new ResponseEntity<>(dataById, HttpStatus.NOT_FOUND);
@@ -71,14 +67,12 @@ public class DataController {
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
 		return new ResponseEntity<>(dataService.findAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
