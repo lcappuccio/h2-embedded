@@ -13,23 +13,50 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 	        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 	        crossorigin="anonymous"></script>
-	<script type="text/javascript" src="js/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
 	<script type="text/javascript" src="js/viewdata.js"></script>
 </head>
 <body>
-<div>
-	<h2><p class="data-size">Total entries: </p></h2>
-</div>
-<div>
-	<div class="panel panel-default">
-		<div class="panel-heading">Table heading</div>
-		<table id="dataTable" class="table">
-			<tr>
-				<th>Id</th>
-				<th>Value</th>
-				<th>Timestamp</th>
-			</tr>
-		</table>
+<div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" src="../images/favicon-32x32.png" width="16" height="16">
+				</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li>
+					<div class="navbar-form navbar-left">
+						<input type="text" class="form-control" id="textInputField" placeholder="Search/Add/Delete"/>
+						<button type="submit" class="btn btn-default" id="addItemBtn" onclick="addItem()">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+						<button type="submit" class="btn btn-default" id="deleteItemBtn" onclick="deleteItem()">
+							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+					</div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="../swagger-ui.html" target="_blank"><span class="glyphicon glyphicon-info-sign">
+				</span> API Documentation</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div>
+		<h2><p id="dataSizePar">Total entries: </p></h2>
+	</div>
+	<div>
+		<div class="panel panel-default">
+			<table id="dataTable" class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Value</th>
+					<th>Timestamp</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
 </body>

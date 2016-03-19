@@ -49,6 +49,10 @@ and add them to your REST utility for basic authentication.
 
 A very basic frontend is [available](http://localhost:8080)
 
+* to add an item enter the data to be saved and click the **+** icon
+* to remove data **enter the id** and click the trash icon or click the inline button
+* to update an item click the value, edit it and click update
+
 # ToDo
 
 * Improve UI
