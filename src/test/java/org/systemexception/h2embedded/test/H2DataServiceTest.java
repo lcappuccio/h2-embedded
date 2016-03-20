@@ -24,11 +24,12 @@ public class H2DataServiceTest {
 	private DataRepository dataRepository;
 	private Data data;
 	private final List<Data> dataList = new ArrayList<>();
+	private final Long TEST_ID = 1L;
 
 	@Before
 	public void setUp() {
 		data = new Data();
-		data.setDataId(1);
+		data.setDataId(TEST_ID);
 		data.setDataValue("TestData");
 		dataList.add(data);
 		dataRepository = mock(DataRepository.class);
@@ -48,18 +49,18 @@ public class H2DataServiceTest {
 	@Test
 	public void delete_existing_data() {
 		sut = new H2DataService(dataRepository);
-		when(dataRepository.findOne(1)).thenReturn(data);
+		when(dataRepository.findOne(TEST_ID)).thenReturn(data);
 
-		assertTrue(sut.delete(1));
-		verify(dataRepository).delete(1);
+		assertTrue(sut.delete(TEST_ID));
+		verify(dataRepository).delete(TEST_ID);
 	}
 
 	@Test
 	public void delete_nonexisting_data() {
 		sut = new H2DataService(dataRepository);
-		when(dataRepository.findOne(1)).thenReturn(null);
+		when(dataRepository.findOne(TEST_ID)).thenReturn(null);
 
-		assertFalse(sut.delete(1));
+		assertFalse(sut.delete(TEST_ID));
 	}
 
 	@Test
@@ -74,36 +75,36 @@ public class H2DataServiceTest {
 	@Test
 	public void find_single_data() {
 		sut = new H2DataService(dataRepository);
-		when(dataRepository.findOne(1)).thenReturn(data);
-		Data foundData = sut.findById(1);
+		when(dataRepository.findOne(TEST_ID)).thenReturn(data);
+		Data foundData = sut.findById(TEST_ID);
 
 		assertTrue(Objects.equals(foundData.getDataId(), data.getDataId()));
 		assertTrue(Objects.equals(foundData.getDataValue(), data.getDataValue()));
-		verify(dataRepository).findOne(1);
+		verify(dataRepository).findOne(TEST_ID);
 	}
 
 	@Test
 	public void update_existing_data() {
 		sut = new H2DataService(dataRepository);
-		when(dataRepository.findOne(1)).thenReturn(data);
+		when(dataRepository.findOne(TEST_ID)).thenReturn(data);
 		data = new Data();
-		data.setDataId(1);
+		data.setDataId(TEST_ID);
 		data.setDataValue("TestData");
 		data.setDataTimestamp(null);
 		assertTrue(sut.update(data));
-		verify(dataRepository).update(1, data.getDataValue());
-		assertFalse(data.equals(sut.findById(1)));
+		verify(dataRepository).update(TEST_ID, data.getDataValue());
+		assertFalse(data.equals(sut.findById(TEST_ID)));
 	}
 
 	@Test
 	public void update_nonexisting_data() {
 		sut = new H2DataService(dataRepository);
-		when(dataRepository.findOne(1)).thenReturn(null);
+		when(dataRepository.findOne(TEST_ID)).thenReturn(null);
 		data = new Data();
-		data.setDataId(1);
+		data.setDataId(TEST_ID);
 		data.setDataValue("TestData");
 		data.setDataTimestamp(null);
 		assertFalse(sut.update(data));
-		assertFalse(data.equals(sut.findById(1)));
+		assertFalse(data.equals(sut.findById(TEST_ID)));
 	}
 }
