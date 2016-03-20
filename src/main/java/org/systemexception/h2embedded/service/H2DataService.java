@@ -3,7 +3,6 @@ package org.systemexception.h2embedded.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.systemexception.h2embedded.domain.Data;
@@ -18,7 +17,6 @@ import java.util.List;
  * @author leo
  * @date 11/10/15 16:46
  */
-@Component
 @Service
 @Transactional
 public class H2DataService implements DataService {
