@@ -37,7 +37,7 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public boolean delete(Integer id) {
+	public boolean delete(Long id) {
 		Data foundData = dataRepository.findOne(id);
 		if (foundData != null) {
 			logger.info("Delete data: " + id);
@@ -54,7 +54,7 @@ public class H2DataService implements DataService {
 	}
 
 	@Override
-	public Data findById(Integer id) {
+	public Data findById(Long id) {
 		return dataRepository.findOne(id);
 	}
 

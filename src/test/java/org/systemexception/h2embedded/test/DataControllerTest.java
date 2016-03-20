@@ -48,7 +48,7 @@ public class DataControllerTest {
 	private DataController dataController;
 	private MockMvc sut;
 	private final static String ENDPOINT = "/api/data/";
-	private final int existingId = 1, nonExistingId = 99;
+	private final Long existingId = 1L, nonExistingId = 99L;
 
 	@Before
 	public void setUp() {

@@ -32,7 +32,6 @@ function addItem() {
 }
 
 function deleteItem(data) {
-	console.log(data);
 	$.ajax({
 		url: '/api/data/' + data,
 		type: 'DELETE'
