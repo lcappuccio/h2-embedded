@@ -14,7 +14,7 @@ import java.util.List;
  * @date 11/10/15 16:47
  */
 @Repository
-public interface DataRepository extends CrudRepository<Data, Integer> {
+public interface DataRepository extends CrudRepository<Data, Long> {
 
 	/**
 	 * @param data
@@ -26,7 +26,7 @@ public interface DataRepository extends CrudRepository<Data, Integer> {
 	 * @param id
 	 */
 	@Modifying
-	void delete(Integer id);
+	void delete(Long id);
 
 	/**
 	 * @return
@@ -37,7 +37,7 @@ public interface DataRepository extends CrudRepository<Data, Integer> {
 	 * @param id
 	 * @return
 	 */
-	Data findOne(Integer id);
+	Data findOne(Long id);
 
 	/**
 	 * @param id
@@ -45,5 +45,5 @@ public interface DataRepository extends CrudRepository<Data, Integer> {
 	 */
 	@Modifying
 	@Query("update Data d set d.dataValue=:dataValue where d.dataId=:id")
-	void update(@Param("id") int id, @Param("dataValue") String dataValue);
+	void update(@Param("id") Long id, @Param("dataValue") String dataValue);
 }

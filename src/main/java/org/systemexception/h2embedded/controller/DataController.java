@@ -39,15 +39,19 @@ public class DataController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
-		return new ResponseEntity<>(dataService.create(data), HttpStatus.CREATED);
+		Data createdData = dataService.create(data);
+		logger.info("Created: " + createdData.getDataId());
+		return new ResponseEntity<>(createdData, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.DELETE)
 	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
 		logger.info("Received DELETE: " + id);
-		if (dataService.delete(Integer.valueOf(id))) {
+		if (dataService.delete(Long.valueOf(id))) {
+			logger.info("Deleted id: " + id);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
+			logNotFound(id);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -56,10 +60,12 @@ public class DataController {
 	@ResponseStatus(HttpStatus.FOUND)
 	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
-		Data dataById = dataService.findById(Integer.valueOf(id));
+		Data dataById = dataService.findById(Long.valueOf(id));
 		if (dataById != null) {
+			logger.info("Found: " + id);
 			return new ResponseEntity<>(dataById, HttpStatus.FOUND);
 		} else {
+			logNotFound(id);
 			return new ResponseEntity<>(dataById, HttpStatus.NOT_FOUND);
 		}
 
@@ -69,16 +75,24 @@ public class DataController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
-		return new ResponseEntity<>(dataService.findAll(), HttpStatus.OK);
+		List<Data> dataList = dataService.findAll();
+		logger.info("Total data: " + dataList.size());
+		return new ResponseEntity<>(dataList, HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Data> update(@RequestBody @Valid Data data) {
 		logger.info("Received UPDATE: " + data.getDataId() + ", " + data.getDataValue());
 		if (dataService.update(data)) {
+			logger.info("Updated: " + data.getDataId());
 			return new ResponseEntity<>(dataService.findById(data.getDataId()), HttpStatus.OK);
 		} else {
+			logNotFound(String.valueOf(data.getDataId()));
 			return new ResponseEntity<>(new Data(), HttpStatus.NOT_FOUND);
 		}
+	}
+
+	private void logNotFound(String dataId) {
+		logger.info("Not found: " + dataId);
 	}
 }
