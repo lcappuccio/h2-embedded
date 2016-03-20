@@ -32,7 +32,6 @@ function addItem() {
 }
 
 function deleteItem(data) {
-	console.log(data);
 	$.ajax({
 		url: '/api/data/' + data,
 		type: 'DELETE'
@@ -43,7 +42,6 @@ function deleteItem(data) {
 function updateItem(dataId) {
 	$(this).siblings().on("click", updateItem);
 	$(this).off("click");
-	var id = $('#dataId_' + dataId).val();
 	var dataValue = $('#dataValue_' + dataId).text();
 	var text = {"dataId": dataId, "dataValue": dataValue, "dataTimestamp": 0};
 	$.ajax({

@@ -21,7 +21,7 @@ public interface DataService {
 	/**
 	 * @param id
 	 */
-	boolean delete(Integer id);
+	boolean delete(Long id);
 
 	/**
 	 * @return
@@ -32,7 +32,7 @@ public interface DataService {
 	 * @param id
 	 * @return
 	 */
-	Data findById(Integer id);
+	Data findById(Long id);
 
 	/**
 	 * @param data

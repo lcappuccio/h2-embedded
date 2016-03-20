@@ -24,6 +24,9 @@ import org.systemexception.h2embedded.controller.DataController;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,16 +48,21 @@ public class DataControllerTest {
 	private DataController dataController;
 	private MockMvc sut;
 	private final static String ENDPOINT = "/api/data/";
-	private final int existingId = 1, nonExistingId = 99;
+	private final Long existingId = 1L, nonExistingId = 99L;
 
 	@Before
 	public void setUp() {
 		data.setDataId(existingId);
 		data.setDataValue("TestData");
+		List<Data> dataList = new ArrayList<>();
+		dataList.add(data);
 		dataService = mock(DataService.class);
-		when(dataService.findAll()).thenReturn(null);
+		when(dataService.findAll()).thenReturn(dataList);
+		when(dataService.findById(existingId)).thenReturn(data);
+		when(dataService.findById(nonExistingId)).thenReturn(null);
 		when(dataService.delete(existingId)).thenReturn(true);
 		when(dataService.delete(nonExistingId)).thenReturn(false);
+		when(dataService.create(any())).thenReturn(data);
 		MockitoAnnotations.initMocks(this);
 		sut = MockMvcBuilders.standaloneSetup(dataController)
 				.apply(SecurityMockMvcConfigurers.springSecurity(springSecurityFilterChain)).build();
@@ -70,7 +78,6 @@ public class DataControllerTest {
 	@Test
 	public void find_single_data() throws Exception {
 		dataService.create(data);
-		when(dataService.findById(existingId)).thenReturn(data);
 		sut.perform(MockMvcRequestBuilders.get(ENDPOINT + data.getDataId()).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is(HttpStatus.FOUND.value()));
 		verify(dataService).findById(existingId);
@@ -78,7 +85,6 @@ public class DataControllerTest {
 
 	@Test
 	public void dont_find_non_existing_data() throws Exception {
-		when(dataService.findById(nonExistingId)).thenReturn(null);
 		sut.perform(MockMvcRequestBuilders.get(ENDPOINT + nonExistingId).accept(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).findById(nonExistingId);

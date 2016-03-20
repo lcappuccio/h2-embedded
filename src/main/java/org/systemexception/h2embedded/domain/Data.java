@@ -13,20 +13,20 @@ public class Data {
 	@Id
 	@GeneratedValue
 	@Column(name = "DATA_ID", unique = true, nullable = false)
-	private int dataId;
+	private Long dataId;
 
-	@Column(name = "DATA_VALUE", nullable = true)
+	@Column(name = "DATA_VALUE")
 	private String dataValue;
 
 	@Column(name = "DATA_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTimestamp;
 
-	public int getDataId() {
+	public Long getDataId() {
 		return dataId;
 	}
 
-	public void setDataId(int dataId) {
+	public void setDataId(Long dataId) {
 		this.dataId = dataId;
 	}
 
