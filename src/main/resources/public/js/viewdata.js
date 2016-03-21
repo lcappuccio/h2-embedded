@@ -5,11 +5,12 @@ function drawRow(rowData) {
 	row.append($("<td contenteditable=true id=dataValue_" + rowData.dataId + ">" + rowData.dataValue + "</td>"));
 	var date = moment(new Date(rowData.dataTimestamp)).format('YYYYMMDD HH:mm:ss');
 	row.append($('<td class="col-md-1">' + date + '</td>'));
-    row.append($('<td class="col-md-1">' +
-                 "<button type=submit class='btn btn-default' id=updateBtn_" + rowData.dataId +
-                 " onclick=updateItem('" + rowData.dataId + "');>Update</button>" +
-                 " <button type=submit class='btn btn-danger' id=deleteBtn_" + rowData.dataId +
-                 " onclick=deleteItem('" + rowData.dataId + "');>Delete</button></td>"));
+	row.append($('<td class="col-md-1">' +
+		"<button type=submit class='btn btn-default' id=updateBtn_" + rowData.dataId +
+		" onclick=updateItem('" + rowData.dataId + "');>Update</button></td>"));
+	row.append($('<td class="col-md-1">' +
+		"<button type=submit class='btn btn-danger' id=deleteBtn_" + rowData.dataId +
+		" onclick=deleteItem('" + rowData.dataId + "');>Delete</button></td>"));
 	row.append('</tr>');
 }
 
