@@ -36,7 +36,6 @@ public class DataController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Data> create(@RequestBody @Valid Data data) {
 		logger.info("Received CREATE: " + data.getDataValue());
 		Data createdData = dataService.create(data);
@@ -57,7 +56,6 @@ public class DataController {
 	}
 
 	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.FOUND)
 	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Long.valueOf(id));
@@ -72,7 +70,6 @@ public class DataController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<List<Data>> findAll() {
 		logger.info("Received GET all persons");
 		List<Data> dataList = dataService.findAll();
