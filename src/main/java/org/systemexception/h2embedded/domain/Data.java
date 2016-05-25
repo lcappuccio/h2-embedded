@@ -2,6 +2,7 @@ package org.systemexception.h2embedded.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author leo
@@ -53,7 +54,7 @@ public class Data {
 
 		Data data = (Data) o;
 
-		if (dataId != data.dataId) return false;
+		if (!Objects.equals(dataId, data.dataId)) return false;
 		if (dataValue != null ? !dataValue.equals(data.dataValue) : data.dataValue != null) return false;
 		return dataTimestamp != null ? dataTimestamp.equals(data.dataTimestamp) : data.dataTimestamp == null;
 
