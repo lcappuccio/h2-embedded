@@ -10,5 +10,6 @@ public class Endpoints {
 	public static final String H2_CONSOLE = "/h2-console";
 	public static final String CONTEXT = "/api/data";
 	// PARAMETERS
-	public static final String DATA_ID = "/{id}";
+	public static final String VARIABLE_ID = "id";
+	public static final String DATA_ID = "/{"+ VARIABLE_ID + "}";
 }
