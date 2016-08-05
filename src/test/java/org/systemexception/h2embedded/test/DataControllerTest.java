@@ -40,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataControllerTest {
 
+	public final static String TEST_DATA = "TestData";
 	@Autowired
 	private FilterChainProxy springSecurityFilterChain;
 	private final Data data = new Data();
@@ -53,7 +54,7 @@ public class DataControllerTest {
 	@Before
 	public void setUp() {
 		data.setDataId(existingId);
-		data.setDataValue("TestData");
+		data.setDataValue(TEST_DATA);
 		List<Data> dataList = new ArrayList<>();
 		dataList.add(data);
 		dataService = mock(DataService.class);
