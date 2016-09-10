@@ -4,17 +4,16 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,36 +33,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author leo
  * @date 11/10/15 21:30
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {Application.class})
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application.properties")
 public class DataControllerTest {
 
-	@Autowired
-	private FilterChainProxy springSecurityFilterChain;
 	private final Data data = new Data();
-	private DataService dataService;
-	@InjectMocks
-	private DataController dataController;
-	private MockMvc sut;
+	public final static String TEST_DATA = "TestData";
 	private final static String ENDPOINT = "/api/data/";
 	private final Long existingId = 1L, nonExistingId = 99L;
+	@Autowired
+	private FilterChainProxy springSecurityFilterChain;
+	@MockBean
+	private DataService dataService;
+	@Autowired
+	private DataController dataController;
+	private MockMvc sut;
 
 	@Before
 	public void setUp() {
 		data.setDataId(existingId);
-		data.setDataValue("TestData");
+		data.setDataValue(TEST_DATA);
 		List<Data> dataList = new ArrayList<>();
 		dataList.add(data);
-		dataService = mock(DataService.class);
 		when(dataService.findAll()).thenReturn(dataList);
 		when(dataService.findById(existingId)).thenReturn(data);
 		when(dataService.findById(nonExistingId)).thenReturn(null);
 		when(dataService.delete(existingId)).thenReturn(true);
 		when(dataService.delete(nonExistingId)).thenReturn(false);
 		when(dataService.create(any())).thenReturn(data);
-		MockitoAnnotations.initMocks(this);
 		sut = MockMvcBuilders.standaloneSetup(dataController)
 				.apply(SecurityMockMvcConfigurers.springSecurity(springSecurityFilterChain)).build();
 	}

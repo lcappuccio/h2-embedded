@@ -30,7 +30,7 @@ public class H2DataServiceTest {
 	public void setUp() {
 		data = new Data();
 		data.setDataId(TEST_ID);
-		data.setDataValue("TestData");
+		data.setDataValue(DataControllerTest.TEST_DATA);
 		dataList.add(data);
 		dataRepository = mock(DataRepository.class);
 		when(dataRepository.save(data)).thenReturn(data);
@@ -89,7 +89,7 @@ public class H2DataServiceTest {
 		when(dataRepository.findOne(TEST_ID)).thenReturn(data);
 		data = new Data();
 		data.setDataId(TEST_ID);
-		data.setDataValue("TestData");
+		data.setDataValue(DataControllerTest.TEST_DATA);
 		data.setDataTimestamp(null);
 		assertTrue(sut.update(data));
 		verify(dataRepository).update(TEST_ID, data.getDataValue());
@@ -102,7 +102,7 @@ public class H2DataServiceTest {
 		when(dataRepository.findOne(TEST_ID)).thenReturn(null);
 		data = new Data();
 		data.setDataId(TEST_ID);
-		data.setDataValue("TestData");
+		data.setDataValue(DataControllerTest.TEST_DATA);
 		data.setDataTimestamp(null);
 		assertFalse(sut.update(data));
 		assertFalse(data.equals(sut.findById(TEST_ID)));
