@@ -100,15 +100,6 @@ public class DataControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.USER_USER, password = SecurityConfig.USER_PASSWORD,
-			roles = {SecurityConfig.USER_ROLE})
-	public void save_data_forbidden() throws Exception {
-		sut.perform(MockMvcRequestBuilders.post(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
-				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.FORBIDDEN.value()));
-		verifyNoMoreInteractions(dataService);
-	}
-
-	@Test
 	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
 			roles = {SecurityConfig.ADMIN_ROLE})
 	public void delete_existing_data() throws Exception {
@@ -129,16 +120,6 @@ public class DataControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.USER_USER, password = SecurityConfig.USER_PASSWORD,
-			roles = {SecurityConfig.USER_ROLE})
-	public void delete_forbidden() throws Exception {
-		when(dataService.update(data)).thenReturn(false);
-		sut.perform(MockMvcRequestBuilders.delete(CONTEXT + PATH_SEPARATOR + nonExistingId)).andExpect(status()
-				.is(HttpStatus.FORBIDDEN.value()));
-		verifyNoMoreInteractions(dataService);
-	}
-
-	@Test
 	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
 			roles = {SecurityConfig.ADMIN_ROLE})
 	public void update_existing_data() throws Exception {
@@ -156,16 +137,6 @@ public class DataControllerTest {
 		sut.perform(MockMvcRequestBuilders.put(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).update(any());
-	}
-
-	@Test
-	@WithMockUser(username = SecurityConfig.USER_USER, password = SecurityConfig.USER_PASSWORD,
-			roles = {SecurityConfig.USER_ROLE})
-	public void update_forbidden() throws Exception {
-		when(dataService.update(any())).thenReturn(false);
-		sut.perform(MockMvcRequestBuilders.put(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
-				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.FORBIDDEN.value()));
-		verifyNoMoreInteractions(dataService);
 	}
 
 	private String dataJson(Data data) {
