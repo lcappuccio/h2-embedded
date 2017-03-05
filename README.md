@@ -6,6 +6,7 @@ Embed H2 programmatically with a REST API using SpringBoot and Spring Security
 [![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/h2-embedded)
 [![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/h2-embedded?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/37a67909f9104902aad70d7a0ad5504e)](https://www.codacy.com/app/leo_4/h2-embedded)
+[![codebeat badge](https://codebeat.co/badges/0825565a-5dfd-49b4-bbfc-74b5e0bc85b1)](https://codebeat.co/projects/github-com-lcappuccio-h2-embedded)
 
 **Develop**
 

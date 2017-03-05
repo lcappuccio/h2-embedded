@@ -16,20 +16,17 @@ import org.systemexception.h2embedded.constants.Endpoints;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final String ADMIN_ROLE = "ADMIN", USER_ROLE = "USER";
+	public static final String ADMIN_USER = "admin", ADMIN_PASSWORD = "admin_pwd", ADMIN_ROLE = "ADMIN";
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("admin_pwd").roles(ADMIN_ROLE);
-		auth.inMemoryAuthentication().withUser("user").password("user_pwd").roles(USER_ROLE);
+		auth.inMemoryAuthentication().withUser(ADMIN_USER).password(ADMIN_PASSWORD).roles(ADMIN_ROLE);
 	}
 
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity.authorizeRequests().antMatchers("/**").permitAll();
 		httpSecurity.authorizeRequests().antMatchers(Endpoints.H2_CONSOLE).hasRole(ADMIN_ROLE).and().httpBasic();
-//		httpSecurity.authorizeRequests().antMatchers(HttpMethod.DELETE).hasRole(ADMIN_ROLE).and().httpBasic();
-//		httpSecurity.authorizeRequests().antMatchers(HttpMethod.POST).hasRole(ADMIN_ROLE).and().httpBasic();
-//		httpSecurity.authorizeRequests().antMatchers(HttpMethod.PUT).hasRole(ADMIN_ROLE).and().httpBasic();
 		httpSecurity.csrf().disable().headers().frameOptions().sameOrigin();
 	}
 }

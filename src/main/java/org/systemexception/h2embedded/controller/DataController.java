@@ -44,7 +44,7 @@ public class DataController {
 	}
 
 	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.DELETE)
-	public ResponseEntity<HttpStatus> delete(@PathVariable("id") String id) {
+	public ResponseEntity<HttpStatus> delete(@PathVariable(Endpoints.VARIABLE_ID) String id) {
 		logger.info("Received DELETE: " + id);
 		if (dataService.delete(Long.valueOf(id))) {
 			logger.info("Deleted id: " + id);
@@ -56,7 +56,7 @@ public class DataController {
 	}
 
 	@RequestMapping(value = Endpoints.DATA_ID, method = RequestMethod.GET)
-	public ResponseEntity<Data> findById(@PathVariable("id") String id) {
+	public ResponseEntity<Data> findById(@PathVariable(Endpoints.VARIABLE_ID) String id) {
 		logger.info("Received Get: " + id);
 		Data dataById = dataService.findById(Long.valueOf(id));
 		if (dataById != null) {
