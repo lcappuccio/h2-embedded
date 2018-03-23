@@ -12,7 +12,7 @@ import java.util.Objects;
 @SequenceGenerator(name= Data.ID_SEQUENCE, initialValue=11, allocationSize=100)
 public class Data {
 
-	public static final String ID_SEQUENCE = "id_sequence";
+	static final String ID_SEQUENCE = "id_sequence";
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ID_SEQUENCE)
 	@Column(name = "DATA_ID", unique = true, nullable = false)
