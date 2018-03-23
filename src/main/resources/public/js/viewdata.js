@@ -6,7 +6,7 @@ function drawRow(rowData) {
     $("#dataTable").append(row);
     row.append($("<td class=col-md-1 id=dataId_" + rowData.dataId + ">" + rowData.dataId + "</td>"));
     row.append($("<td contenteditable=true id=dataValue_" + rowData.dataId + ">" + rowData.dataValue + "</td>"));
-    var date = moment(new Date(rowData.dataTimestamp)).format("YYYY-MM-DD HH:mm:ss");
+    var date = moment(rowData.dataTimestamp).format("YYYY-MM-DD HH:mm:ss");
     row.append($("<td class=\"col-md-1\">" + date + "</td>"));
     row.append($("<td class=\"col-md-1\">" +
         "<button type=submit class=\"btn btn-default\" id=updateBtn_" + rowData.dataId +
