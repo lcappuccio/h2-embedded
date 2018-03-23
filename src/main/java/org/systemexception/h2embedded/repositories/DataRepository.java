@@ -26,7 +26,7 @@ public interface DataRepository extends CrudRepository<Data, Long> {
 	 * @param id
 	 */
 	@Modifying
-	void delete(Long id);
+	void deleteByDataId(Long id);
 
 	/**
 	 * @return
@@ -37,7 +37,7 @@ public interface DataRepository extends CrudRepository<Data, Long> {
 	 * @param id
 	 * @return
 	 */
-	Data findOne(Long id);
+	Data findByDataId(Long id);
 
 	/**
 	 * @param id

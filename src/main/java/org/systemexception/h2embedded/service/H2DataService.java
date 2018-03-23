@@ -38,10 +38,10 @@ public class H2DataService implements DataService {
 
 	@Override
 	public boolean delete(Long id) {
-		Data foundData = dataRepository.findOne(id);
+		Data foundData = dataRepository.findByDataId(id);
 		if (foundData != null) {
 			logger.info("Delete data: " + id);
-			dataRepository.delete(id);
+			dataRepository.deleteByDataId(id);
 			return true;
 		} else {
 			return false;
@@ -55,12 +55,12 @@ public class H2DataService implements DataService {
 
 	@Override
 	public Data findById(Long id) {
-		return dataRepository.findOne(id);
+		return dataRepository.findByDataId(id);
 	}
 
 	@Override
 	public boolean update(Data data) {
-		Data foundData = dataRepository.findOne(data.getDataId());
+		Data foundData = dataRepository.findByDataId(data.getDataId());
 		if (foundData != null) {
 			logger.info("Update data: " + data.getDataId() + ", " + data.getDataValue());
 			foundData.setDataValue(data.getDataValue());

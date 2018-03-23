@@ -8,6 +8,8 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.Collections;
+
 /**
  * @author leo
  * @date 11/10/15 15:43
@@ -34,6 +36,7 @@ public class Application {
 				null,
 				new Contact("Leonardo Cappuccio", "https://github.com/lcappuccio/h2-embedded", null),
 				"GPL v3",
-				"https://raw.githubusercontent.com/lcappuccio/h2-embedded/master/LICENSE");
+				"https://raw.githubusercontent.com/lcappuccio/h2-embedded/master/LICENSE",
+				Collections.emptyList());
 	}
 }
