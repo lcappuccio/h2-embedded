@@ -9,7 +9,7 @@ import java.util.Objects;
  * @date 07/06/15 20:49
  */
 @Entity
-@SequenceGenerator(name= Data.ID_SEQUENCE, initialValue=11, allocationSize=100)
+@SequenceGenerator(name= Data.ID_SEQUENCE, initialValue=100, allocationSize=100)
 public class Data {
 
 	static final String ID_SEQUENCE = "id_sequence";
