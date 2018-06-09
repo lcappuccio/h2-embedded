@@ -1,17 +1,15 @@
-package org.systemexception.h2embedded.test;
+package org.systemexception.h2embedded.service;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.systemexception.h2embedded.controller.DataControllerTest;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.repositories.DataRepository;
-import org.systemexception.h2embedded.service.H2DataService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
@@ -42,7 +40,7 @@ public class H2DataServiceTest {
 		sut = new H2DataService(dataRepository);
 		Data newData = sut.create(data);
 
-		assertTrue(newData.equals(data));
+		assertEquals(newData, data);
 		verify(dataRepository).save(data);
 	}
 
@@ -68,7 +66,7 @@ public class H2DataServiceTest {
 		sut = new H2DataService((dataRepository));
 		List<Data> datas = sut.findAll();
 
-		assertTrue(datas.size() == dataList.size());
+		assertEquals(datas.size(), dataList.size());
 		verify(dataRepository).findAll();
 	}
 
@@ -78,8 +76,8 @@ public class H2DataServiceTest {
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(data);
 		Data foundData = sut.findById(TEST_ID);
 
-		assertTrue(Objects.equals(foundData.getDataId(), data.getDataId()));
-		assertTrue(Objects.equals(foundData.getDataValue(), data.getDataValue()));
+		assertEquals(foundData.getDataId(), data.getDataId());
+		assertEquals(foundData.getDataValue(), data.getDataValue());
 		verify(dataRepository).findByDataId(TEST_ID);
 	}
 
@@ -93,7 +91,7 @@ public class H2DataServiceTest {
 		data.setDataTimestamp(null);
 		assertTrue(sut.update(data));
 		verify(dataRepository).update(TEST_ID, data.getDataValue());
-		assertFalse(data.equals(sut.findById(TEST_ID)));
+		assertNotEquals(data, sut.findById(TEST_ID));
 	}
 
 	@Test
@@ -105,6 +103,6 @@ public class H2DataServiceTest {
 		data.setDataValue(DataControllerTest.TEST_DATA);
 		data.setDataTimestamp(null);
 		assertFalse(sut.update(data));
-		assertFalse(data.equals(sut.findById(TEST_ID)));
+		assertNotEquals(data, sut.findById(TEST_ID));
 	}
 }
