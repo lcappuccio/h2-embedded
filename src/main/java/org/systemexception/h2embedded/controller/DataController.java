@@ -1,6 +1,5 @@
 package org.systemexception.h2embedded.controller;
 
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.systemexception.h2embedded.constants.Endpoints;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,10 +18,10 @@ import java.util.List;
  * @author leo
  * @date 11/10/15 16:49
  */
-@EnableSwagger2
+//@EnableSwagger2
 @RestController
 @RequestMapping(value = Endpoints.CONTEXT)
-@Api(basePath = Endpoints.CONTEXT, value = "Data", description = "Data REST API")
+//@Api(basePath = Endpoints.CONTEXT, value = "Data", description = "Data REST API")
 public class DataController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
