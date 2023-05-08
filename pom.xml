@@ -118,6 +118,7 @@
 					<excludes>
 						<exclude>**/*Application.*</exclude>
 						<exclude>**/*Endpoints.*</exclude>
+						<exclude>**/Main.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
