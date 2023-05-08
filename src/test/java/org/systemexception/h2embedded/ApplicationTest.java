@@ -1,4 +1,4 @@
-package org.systemexception.h2embedded.test;
+package org.systemexception.h2embedded;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

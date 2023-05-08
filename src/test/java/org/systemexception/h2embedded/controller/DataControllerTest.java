@@ -1,4 +1,4 @@
-package org.systemexception.h2embedded.test;
+package org.systemexception.h2embedded.controller;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ import static org.systemexception.h2embedded.constants.Endpoints.PATH_SEPARATOR;
 class DataControllerTest {
 
 	private final Data data = new Data();
-	final static String TEST_DATA = "TestData";
+	public final static String TEST_DATA = "TestData";
 	private final Long existingId = 1L, nonExistingId = 99L;
 	@Autowired
 	private FilterChainProxy springSecurityFilterChain;
