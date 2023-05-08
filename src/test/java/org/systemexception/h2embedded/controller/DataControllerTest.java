@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.systemexception.h2embedded.Application;
 import org.systemexception.h2embedded.SecurityConfig;
-import org.systemexception.h2embedded.controller.DataController;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.service.DataService;
 
@@ -39,7 +38,7 @@ import static org.systemexception.h2embedded.constants.Endpoints.PATH_SEPARATOR;
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application-test.properties")
-class DataControllerTest {
+public class DataControllerTest {
 
 	private final Data data = new Data();
 	public final static String TEST_DATA = "TestData";
