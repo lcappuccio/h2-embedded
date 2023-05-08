@@ -1,8 +1,8 @@
 package org.systemexception.h2embedded.test;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,7 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -35,7 +35,7 @@ import static org.systemexception.h2embedded.constants.Endpoints.PATH_SEPARATOR;
  * @author leo
  * @date 11/10/15 21:30
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {Application.class})
 @WebAppConfiguration
 @TestPropertySource(locations = "classpath:application.properties")
@@ -52,7 +52,7 @@ public class DataControllerTest {
 	private DataController dataController;
 	private MockMvc sut;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		data.setDataId(existingId);
 		data.setDataValue(TEST_DATA);
@@ -69,14 +69,14 @@ public class DataControllerTest {
 	}
 
 	@Test
-	public void find_all_persons() throws Exception {
+	void find_all_persons() throws Exception {
 		sut.perform(MockMvcRequestBuilders.get(CONTEXT).accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status()
 				.is(HttpStatus.OK.value()));
 		verify(dataService).findAll();
 	}
 
 	@Test
-	public void find_single_data() throws Exception {
+	void find_single_data() throws Exception {
 		dataService.create(data);
 		sut.perform(MockMvcRequestBuilders.get(CONTEXT + PATH_SEPARATOR + data.getDataId())
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().is(HttpStatus.FOUND.value()));
@@ -84,25 +84,25 @@ public class DataControllerTest {
 	}
 
 	@Test
-	public void dont_find_non_existing_data() throws Exception {
+	void dont_find_non_existing_data() throws Exception {
 		sut.perform(MockMvcRequestBuilders.get(CONTEXT + PATH_SEPARATOR + nonExistingId)
 				.accept(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
 		verify(dataService).findById(nonExistingId);
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
-			roles = {SecurityConfig.ADMIN_ROLE})
-	public void save_data() throws Exception {
+	@WithMockUser(username = SecurityConfig.ADMIN_USER,password = SecurityConfig.ADMIN_PASSWORD,
+	roles = {SecurityConfig.ADMIN_ROLE})
+	void save_data() throws Exception {
 		sut.perform(MockMvcRequestBuilders.post(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.CREATED.value()));
 		verify(dataService).create(any());
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
-			roles = {SecurityConfig.ADMIN_ROLE})
-	public void delete_existing_data() throws Exception {
+	@WithMockUser(username = SecurityConfig.ADMIN_USER,password = SecurityConfig.ADMIN_PASSWORD,
+	roles = {SecurityConfig.ADMIN_ROLE})
+	void delete_existing_data() throws Exception {
 		when(dataService.update(data)).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.delete(CONTEXT + PATH_SEPARATOR + existingId)).andExpect(status()
 				.is(HttpStatus.OK.value()));
@@ -110,9 +110,9 @@ public class DataControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
-			roles = {SecurityConfig.ADMIN_ROLE})
-	public void delete_nonexisting_data() throws Exception {
+	@WithMockUser(username = SecurityConfig.ADMIN_USER,password = SecurityConfig.ADMIN_PASSWORD,
+	roles = {SecurityConfig.ADMIN_ROLE})
+	void delete_nonexisting_data() throws Exception {
 		when(dataService.update(data)).thenReturn(false);
 		sut.perform(MockMvcRequestBuilders.delete(CONTEXT + PATH_SEPARATOR + nonExistingId)).andExpect(status()
 				.is(HttpStatus.NOT_FOUND.value()));
@@ -120,9 +120,9 @@ public class DataControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
-			roles = {SecurityConfig.ADMIN_ROLE})
-	public void update_existing_data() throws Exception {
+	@WithMockUser(username = SecurityConfig.ADMIN_USER,password = SecurityConfig.ADMIN_PASSWORD,
+	roles = {SecurityConfig.ADMIN_ROLE})
+	void update_existing_data() throws Exception {
 		when(dataService.update(any())).thenReturn(true);
 		sut.perform(MockMvcRequestBuilders.put(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.OK.value()));
@@ -130,9 +130,9 @@ public class DataControllerTest {
 	}
 
 	@Test
-	@WithMockUser(username = SecurityConfig.ADMIN_USER, password = SecurityConfig.ADMIN_PASSWORD,
-			roles = {SecurityConfig.ADMIN_ROLE})
-	public void update_nonexisting_data() throws Exception {
+	@WithMockUser(username = SecurityConfig.ADMIN_USER,password = SecurityConfig.ADMIN_PASSWORD,
+	roles = {SecurityConfig.ADMIN_ROLE})
+	void update_nonexisting_data() throws Exception {
 		when(dataService.update(any())).thenReturn(false);
 		sut.perform(MockMvcRequestBuilders.put(CONTEXT).contentType(MediaType.APPLICATION_JSON_VALUE).content
 				(dataJson(data).getBytes())).andExpect(status().is(HttpStatus.NOT_FOUND.value()));
