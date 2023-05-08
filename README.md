@@ -17,6 +17,7 @@ Embed H2 programmatically with a REST API using SpringBoot and Spring Security
 The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-console)
 
 To login use the **ADMIN** role credentials found in: `org.systemexception.h2embedded.SecurityConfig`
+or use jdbc url and user/password from application.properties
 
 ## Documentation
 
