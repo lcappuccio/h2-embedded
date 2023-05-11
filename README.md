@@ -1,7 +1,7 @@
 # H2Embedded
 Embed H2 programmatically with a REST API using SpringBoot and Spring Security
 
-
+[![Build h2-embedded](https://github.com/lcappuccio/h2-embedded/actions/workflows/build.yaml/badge.svg)](https://github.com/lcappuccio/h2-embedded/actions/workflows/build.yaml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lcappuccio_h2-embedded&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lcappuccio_h2-embedded)
 
 ## H2 Console
