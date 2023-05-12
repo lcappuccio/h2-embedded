@@ -16,7 +16,7 @@ import org.systemexception.h2embedded.constants.Endpoints;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	public static final String ADMIN_USER = "admin", ADMIN_PASSWORD = "admin_pwd", ADMIN_ROLE = "ADMIN";
+	public static final String ADMIN_USER = "admin", ADMIN_PASSWORD = "{noop}admin_pwd", ADMIN_ROLE = "ADMIN";
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

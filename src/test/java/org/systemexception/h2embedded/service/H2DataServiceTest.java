@@ -1,24 +1,22 @@
-package org.systemexception.h2embedded.test;
+package org.systemexception.h2embedded.service;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.systemexception.h2embedded.controller.DataControllerTest;
 import org.systemexception.h2embedded.domain.Data;
 import org.systemexception.h2embedded.repositories.DataRepository;
-import org.systemexception.h2embedded.service.H2DataService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
  * @author leo
  * @date 11/10/15 23:31
  */
-public class H2DataServiceTest {
+class H2DataServiceTest {
 
 	private H2DataService sut;
 	private DataRepository dataRepository;
@@ -26,7 +24,7 @@ public class H2DataServiceTest {
 	private final List<Data> dataList = new ArrayList<>();
 	private final Long TEST_ID = 1L;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		data = new Data();
 		data.setDataId(TEST_ID);
@@ -38,16 +36,16 @@ public class H2DataServiceTest {
 	}
 
 	@Test
-	public void save_data() {
+	void save_data() {
 		sut = new H2DataService(dataRepository);
 		Data newData = sut.create(data);
 
-		assertTrue(newData.equals(data));
+		assertEquals(newData, data);
 		verify(dataRepository).save(data);
 	}
 
 	@Test
-	public void delete_existing_data() {
+	void delete_existing_data() {
 		sut = new H2DataService(dataRepository);
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(data);
 
@@ -56,7 +54,7 @@ public class H2DataServiceTest {
 	}
 
 	@Test
-	public void delete_nonexisting_data() {
+	void delete_nonexisting_data() {
 		sut = new H2DataService(dataRepository);
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(null);
 
@@ -64,27 +62,27 @@ public class H2DataServiceTest {
 	}
 
 	@Test
-	public void find_all_data() {
+	void find_all_data() {
 		sut = new H2DataService((dataRepository));
 		List<Data> datas = sut.findAll();
 
-		assertTrue(datas.size() == dataList.size());
+		assertEquals(datas.size(), dataList.size());
 		verify(dataRepository).findAll();
 	}
 
 	@Test
-	public void find_single_data() {
+	void find_single_data() {
 		sut = new H2DataService(dataRepository);
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(data);
 		Data foundData = sut.findById(TEST_ID);
 
-		assertTrue(Objects.equals(foundData.getDataId(), data.getDataId()));
-		assertTrue(Objects.equals(foundData.getDataValue(), data.getDataValue()));
+		assertEquals(foundData.getDataId(), data.getDataId());
+		assertEquals(foundData.getDataValue(), data.getDataValue());
 		verify(dataRepository).findByDataId(TEST_ID);
 	}
 
 	@Test
-	public void update_existing_data() {
+	void update_existing_data() {
 		sut = new H2DataService(dataRepository);
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(data);
 		data = new Data();
@@ -93,11 +91,11 @@ public class H2DataServiceTest {
 		data.setDataTimestamp(null);
 		assertTrue(sut.update(data));
 		verify(dataRepository).update(TEST_ID, data.getDataValue());
-		assertFalse(data.equals(sut.findById(TEST_ID)));
+		assertNotEquals(data, sut.findById(TEST_ID));
 	}
 
 	@Test
-	public void update_nonexisting_data() {
+	void update_nonexisting_data() {
 		sut = new H2DataService(dataRepository);
 		when(dataRepository.findByDataId(TEST_ID)).thenReturn(null);
 		data = new Data();
@@ -105,6 +103,6 @@ public class H2DataServiceTest {
 		data.setDataValue(DataControllerTest.TEST_DATA);
 		data.setDataTimestamp(null);
 		assertFalse(sut.update(data));
-		assertFalse(data.equals(sut.findById(TEST_ID)));
+		assertNotEquals(data, sut.findById(TEST_ID));
 	}
 }

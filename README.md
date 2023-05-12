@@ -1,22 +1,14 @@
 # H2Embedded
 Embed H2 programmatically with a REST API using SpringBoot and Spring Security
 
-**Master**
-
-[![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=master)](https://travis-ci.org/lcappuccio/h2-embedded)
-[![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/h2-embedded?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/37a67909f9104902aad70d7a0ad5504e)](https://www.codacy.com/app/leo_4/h2-embedded)
-[![codebeat badge](https://codebeat.co/badges/0825565a-5dfd-49b4-bbfc-74b5e0bc85b1)](https://codebeat.co/projects/github-com-lcappuccio-h2-embedded)
-
-**Develop**
-
-[![Build Status](https://travis-ci.org/lcappuccio/h2-embedded.svg?branch=develop)](https://travis-ci.org/lcappuccio/h2-embedded)
-[![codecov.io](https://codecov.io/github/lcappuccio/h2-embedded/coverage.svg?branch=develop)](https://codecov.io/github/lcappuccio/h2-embedded?branch=develop)
+[![Build h2-embedded](https://github.com/lcappuccio/h2-embedded/actions/workflows/build.yaml/badge.svg)](https://github.com/lcappuccio/h2-embedded/actions/workflows/build.yaml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lcappuccio_h2-embedded&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=lcappuccio_h2-embedded)
 
 ## H2 Console
 The H2 Web Console is available on [deployed instance](http://localhost:8080/h2-console)
 
 To login use the **ADMIN** role credentials found in: `org.systemexception.h2embedded.SecurityConfig`
+or use jdbc url and user/password from application.properties
 
 ## Documentation
 
