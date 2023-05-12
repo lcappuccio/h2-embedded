@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    name: Build, Test, Sonar
     runs-on: ubuntu-latest
 
     steps:
